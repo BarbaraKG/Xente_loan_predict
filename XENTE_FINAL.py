@@ -113,7 +113,7 @@ elif selected == "Predictor":
     st.write("Enter customer loan details below:")
 
     # Input fields
-    product_category = st.selectbox("Product Category", [Airtime, Data Bundles, Retail, Utility Bills, TV, Financial Services, Movies])  # LabelEncoded
+    product_category = st.selectbox("Product Category", ['Airtime', 'Data Bundles', 'Retail', 'Utility Bills', 'TV', 'Financial Services', 'Movies'])  # LabelEncoded
     amount_loan = st.number_input("Amount of Loan", min_value=50.0, max_value=100000.0, value=5000.0)
     investor_id = st.selectbox("Investor ID", [1, 2])
     total_amount = st.number_input("Total Amount", min_value=50.0, max_value=100000.0, value=5000.0)
