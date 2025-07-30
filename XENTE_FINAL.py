@@ -116,6 +116,7 @@ elif selected == "Predictor":
     product_category = st.selectbox("Product Category", ['Airtime', 'Data Bundles', 'Retail', 'Utility Bills', 'TV', 'Financial Services', 'Movies'])  # LabelEncoded
     amount_loan = st.number_input("Amount of Loan", min_value=50.0, max_value=100000.0, value=5000.0)
     investor_id = st.selectbox("Investor ID", [1, 2])
+    third_party_confirmed = st.selectbox("Is Third Party Confirmed?", [0, 1])
     total_amount = st.number_input("Total Amount", min_value=50.0, max_value=100000.0, value=5000.0)
 
     if st.button("Predict Default Probability"):
@@ -123,6 +124,7 @@ elif selected == "Predictor":
             'ProductCategory': [product_category],
             'AmountLoan': [amount_loan],
             'InvestorId': [investor_id],
+            'IsThirdPartyConfirmed': [third_party_confirmed],
             'TotalAmount': [total_amount]
         })
 
