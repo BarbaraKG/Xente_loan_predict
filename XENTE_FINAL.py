@@ -123,7 +123,6 @@ elif selected == "Predictor":
             'ProductCategory': [product_category],
             'AmountLoan': [amount_loan],
             'InvestorId': [investor_id],
-            'IsThirdPartyConfirmed': [third_party_confirmed],
             'TotalAmount': [total_amount]
         })
 
