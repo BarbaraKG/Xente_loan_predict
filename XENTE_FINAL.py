@@ -10,7 +10,7 @@ from streamlit_option_menu import option_menu
 st.set_page_config(page_title="Loan Default Predictor - Xente", layout="wide")
 
 # ------------------------------------------------
-# CUSTOM STYLING (New color scheme)
+# CUSTOM STYLING (Updated text color to black in inputs)
 # ------------------------------------------------
 st.markdown("""
     <style>
@@ -29,8 +29,10 @@ st.markdown("""
             background-color: #DFF0D8 !important;
             border-radius: 8px;
         }
-        input[type="number"] {
+        input[type="number"],
+        input[type="text"] {
             background-color: #DFF0D8 !important;
+            color: #000000 !important;
             border-radius: 8px;
             padding: 0.4rem;
         }
