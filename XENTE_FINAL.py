@@ -113,35 +113,47 @@ elif selected == "Predictor":
     st.write("Enter customer loan details below:")
 
     # Input fields
-    product_category = st.selectbox("Product Category", ['Airtime', 'Data Bundles', 'Retail', 'Utility Bills', 'TV', 'Financial Services', 'Movies'])  # LabelEncoded
+    product_category = st.selectbox("Product Category", ['Airtime', 'Data Bundles', 'Retail', 'Utility Bills', 'TV', 'Financial Services', 'Movies'])
     amount_loan = st.number_input("Amount of Loan", min_value=50.0, max_value=100000.0, value=5000.0)
     investor_id = st.selectbox("Investor ID", [1, 2])
     third_party_confirmed = st.selectbox("Is Third Party Confirmed?", [0, 1])
     total_amount = st.number_input("Total Amount", min_value=50.0, max_value=100000.0, value=5000.0)
 
     if st.button("Predict Default Probability"):
-        new_data = pd.DataFrame({
-            'ProductCategory': [product_category],
-            'AmountLoan': [amount_loan],
-            'InvestorId': [investor_id],
-            'IsThirdPartyConfirmed': [third_party_confirmed],
-            'TotalAmount': [total_amount]
-        })
+        # Manual encoding for product category
+        product_category_mapping = {
+            'Airtime': 0,
+            'Data Bundles': 1,
+            'Retail': 2,
+            'Utility Bills': 3,
+            'TV': 4,
+            'Financial Services': 5,
+            'Movies': 6
+        }
+        product_category_encoded = product_category_mapping.get(product_category, -1)
 
-        new_data_scaled = scaler.transform(new_data)
-        for col in X_columns:
-            if col not in new_data.columns:
-                new_data[col] = 0
+        input_data = pd.DataFrame([{
+            'ProductCategory': product_category_encoded,
+            'AmountLoan': amount_loan,
+            'InvestorId': investor_id - 1,
+            'IsThirdPartyConfirmed': third_party_confirmed,
+            'TotalAmount': total_amount
+        }])
 
-        new_data = pd.DataFrame(new_data_scaled, columns=X_columns)
-        prob = model.predict_proba(new_data)[0][1] * 100
+        # Reorder and scale
+        input_data = input_data[X_columns]
+        scaled_input = scaler.transform(input_data)
+        final_input = pd.DataFrame(scaled_input, columns=X_columns)
+
+        # Prediction
+        prob = model.predict_proba(final_input)[0][1] * 100
         st.success(f"Predicted Default Probability: {prob:.2f}%")
 
 # ------------------------------------------------
 # ABOUT TAB
 # ------------------------------------------------
 elif selected == "About":
-    st.title("ℹ️ About This App")
+    st.title("ℹ About This App")
     st.markdown("""
         This Streamlit app predicts the probability that a customer may default on a loan based on features from Xente's financial dataset.
 
